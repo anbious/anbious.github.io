@@ -25,7 +25,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Mist',
+    scheme: 'Pisces',
     version: '7.4.1',
     exturl: false,
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
@@ -55,18 +55,28 @@
   };
 </script>
 
-  <meta name="description" content="第一步下载nodejs，Windows用户官网下载，LTS版本，然后安装，默认会配置路径 第二步选择一个自己心仪的博客框架，推荐HEXO，或者是JeKyll，">
+  <meta name="description" content="本文记录了利用Github pages + hexo + nexT建站的经过，偶有踩坑。。且没有解决。。以后还是要再多试试。不过从0到1建站还是很有成就感的，记录一哈~">
 <meta name="keywords" content="杂项">
 <meta property="og:type" content="article">
 <meta property="og:title" content="搭建博客">
 <meta property="og:url" content="http://yoursite.com/2019/10/07/搭建博客/index.html">
 <meta property="og:site_name" content="Gality&#39;s Blog">
-<meta property="og:description" content="第一步下载nodejs，Windows用户官网下载，LTS版本，然后安装，默认会配置路径 第二步选择一个自己心仪的博客框架，推荐HEXO，或者是JeKyll，">
+<meta property="og:description" content="本文记录了利用Github pages + hexo + nexT建站的经过，偶有踩坑。。且没有解决。。以后还是要再多试试。不过从0到1建站还是很有成就感的，记录一哈~">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-07T14:55:17.617Z">
+<meta property="og:image" content="https://segmentfault.com/img/remote/1460000017990239">
+<meta property="og:image" content="https://segmentfault.com/img/remote/1460000017990240?w=1028&h=620">
+<meta property="og:image" content="https://segmentfault.com/img/remote/1460000017990241?w=747&h=623">
+<meta property="og:image" content="https://segmentfault.com/img/remote/1460000017990245">
+<meta property="og:image" content="https://segmentfault.com/img/remote/1460000017990246?w=683&h=383">
+<meta property="og:image" content="https://segmentfault.com/img/remote/1460000017990247?w=566&h=52">
+<meta property="og:image" content="https://segmentfault.com/img/remote/1460000017990248">
+<meta property="og:image" content="https://segmentfault.com/img/remote/1460000017990249?w=1019&h=441">
+<meta property="og:image" content="d:%5CInfo%5Cblog%5Csource_posts%5C2920298820-5c47cdffac5f1_articlex.jpg">
+<meta property="og:updated_time" content="2019-10-07T17:12:19.322Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="搭建博客">
-<meta name="twitter:description" content="第一步下载nodejs，Windows用户官网下载，LTS版本，然后安装，默认会配置路径 第二步选择一个自己心仪的博客框架，推荐HEXO，或者是JeKyll，">
+<meta name="twitter:description" content="本文记录了利用Github pages + hexo + nexT建站的经过，偶有踩坑。。且没有解决。。以后还是要再多试试。不过从0到1建站还是很有成就感的，记录一哈~">
+<meta name="twitter:image" content="https://segmentfault.com/img/remote/1460000017990239">
   <link rel="canonical" href="http://yoursite.com/2019/10/07/搭建博客/">
 
 
@@ -206,8 +216,6 @@
   </li>
   </ul>
 
-    
-
 </nav>
 </div>
     </header>
@@ -222,6 +230,8 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+            
+
           <div id="content" class="content">
             
 
@@ -258,11 +268,19 @@
                 
               
 
-              <time title="创建时间：2019-10-07 22:47:54 / 修改时间：22:55:17" itemprop="dateCreated datePublished" datetime="2019-10-07T22:47:54+08:00">2019-10-07</time>
+              <time title="创建时间：2019-10-07 22:47:54" itemprop="dateCreated datePublished" datetime="2019-10-07T22:47:54+08:00">2019-10-07</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-10-08 01:12:19" itemprop="dateModified" datetime="2019-10-08T01:12:19+08:00">2019-10-08</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -290,8 +308,74 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h2><p>下载nodejs，Windows用户官网下载，LTS版本，然后安装，默认会配置路径</p>
-<h2 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h2><p>选择一个自己心仪的博客框架，推荐HEXO，或者是JeKyll，</p>
+        <p>本文记录了利用Github pages + hexo + nexT建站的经过，偶有踩坑。。且没有解决。。以后还是要再多试试。不过从0到1建站还是很有成就感的，记录一哈~</p>
+<a id="more"></a>
+
+<h2 id="第一步：本地前提准备"><a href="#第一步：本地前提准备" class="headerlink" title="第一步：本地前提准备"></a>第一步：本地前提准备</h2><ol>
+<li><p>首先推荐<a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">官方文档</a>，懒人可参考一下步骤</p>
+</li>
+<li><p>下载nodejs，Windows用户官网下载，LTS版本，然后安装，默认会配置路径，别忘了重启一下终端，再不行就重启电脑=。=</p>
+</li>
+<li><p>选择一个自己心仪的博客框架，推荐HEXO，或者是JeKyll，</p>
+<blockquote>
+<p>这两者都是用于生成伪静态页面的两个博客框架，这个博客是使用HEXO搭建的，接下来也是介绍HEXO的建站过程，如果想找JsKyll的框架，可以阅读大佬的博客<a href="https://faner.gitlab.io/blog/2017/07/07/jekyll安装与部署/" target="_blank" rel="noopener">https://faner.gitlab.io/blog/2017/07/07/jekyll%E5%AE%89%E8%A3%85%E4%B8%8E%E9%83%A8%E7%BD%B2/</a></p>
+</blockquote>
+</li>
+<li><p>安装HEXO的命令：<code>npm install -g hexo-cli</code></p>
+<blockquote>
+<p>这一步可能会有warn，但是没事，只要没有error就不影响正常使用，如果发现npm无法请求到东西，可以尝试使用cnpm替换为国内源</p>
+</blockquote>
+</li>
+<li><p>接着输入：<code>npm install hexo --save</code></p>
+</li>
+<li><p>安装完成后检查一下：<code>hexo -v</code>，如果输出正常，hexo就没问题了</p>
+</li>
+<li><p>这时在本地新建一个空白文件夹，加入命名为blog，作为你的博客的一个容器，博客相关的东西都会在这里，接着进入这个目录，输入：<code>hexo init</code> 完成hexo的初始化</p>
+</li>
+<li><p>接着输入<code>hexo clean &amp;&amp; hexo d &amp;&amp; hexo s</code> 把项目启动</p>
+</li>
+<li><p>点开 <a href="http://localhost:4000/" target="_blank" rel="noopener">http://localhost:4000/</a> ，恭喜你！已经在本地搭建好博客了 (๑•̀ㅂ•́)و✧！距离成功只差下一步——部署博客到 GitHub Pages 了～</p>
+</li>
+<li><p>哦对了，还有一个东西，那就是Git，也要本地安装，有两种方式，一种是下载github客户端Github desktop，或者就是git的安装：可以从Git官网直接<a href="https://git-scm.com/downloads" target="_blank" rel="noopener">下载安装程序</a></p>
+</li>
+</ol>
+<h2 id="第二步：Github配置"><a href="#第二步：Github配置" class="headerlink" title="第二步：Github配置"></a>第二步：Github配置</h2><p>这里引一下大佬的博客：<a href="https://segmentfault.com/a/1190000017986794" target="_blank" rel="noopener">https://segmentfault.com/a/1190000017986794</a></p>
+<p>首先如果你还没有 Github 账号的先<a href="https://github.com/" target="_blank" rel="noopener">注册</a>一个，具体过程如下</p>
+<p><img src="https://segmentfault.com/img/remote/1460000017990239" alt="image"></p>
+<p>点击 Start project 或者下面的 new repository 创建一个新的仓库</p>
+<p><img src="https://segmentfault.com/img/remote/1460000017990240?w=1028&h=620" alt="image"></p>
+<p>注意点来了，Github 仅能使用一个同名仓库的代码托管一个静态站点，这个网上很多教程没说到的。</p>
+<p><img src="https://segmentfault.com/img/remote/1460000017990241?w=747&h=623" alt="image"></p>
+<p>然后github的配置就基本完成了，这时其实已经可以开始干大事了，但是为了方便还是建议阅读一下的配置ssh key的步骤</p>
+<h2 id="配置-SSH-key"><a href="#配置-SSH-key" class="headerlink" title="配置 SSH key"></a>配置 SSH key</h2><p>要使用 git 工具首先要配置一下SSH key，为部署本地博客到 Github 做准备。</p>
+<p>打开命令行输入 cd ~/.ssh 如果没报错或者提示什么的说明就是以前生成过的，直接使用 cat ~/.ssh/id_rsa.pub 命令就是可以查看本机上的 SSH key 了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat ~/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://segmentfault.com/img/remote/1460000017990245" alt="image"></p>
+<p>如果之前没有创建，则执行以下命令全局配置一下本地账户：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;用户名&quot;</span><br><span class="line">git config --global user.email &quot;邮箱地址&quot;</span><br></pre></td></tr></table></figure>
+
+<p>然后开始生成密钥 SSH key</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &apos;上面的邮箱&apos;</span><br></pre></td></tr></table></figure>
+
+<p>按照提示完成三次回车，即可生成 ssh key。通过查看 ~/.ssh/id_rsa.pub 文件内容，获取到你的 SSH key</p>
+<p><img src="https://segmentfault.com/img/remote/1460000017990246?w=683&h=383" alt="image"></p>
+<p>（此图引用自码云）</p>
+<p>首次使用还需要确认并添加主机到本机SSH可信列表。若返回 Hi xxx! You’ve successfully authenticated, but GitHub does not provide shell access. 内容，则证明添加成功。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://segmentfault.com/img/remote/1460000017990247?w=566&h=52" alt="image"></p>
+<p>到这还没完，还要登录 <a href="https://github.com/" target="_blank" rel="noopener">Github</a> 上添加刚刚生成的SSH key，按以下步骤添加：</p>
+<p><img src="https://segmentfault.com/img/remote/1460000017990248" alt="image"></p>
+<p>创建一个新的 SSH key, 标题随便，key 就填刚才生成那个，确认创建，搞定！！这样在你的 SSH keys 列表里就会看到你刚刚添加的密钥。</p>
+<p><img src="https://segmentfault.com/img/remote/1460000017990249?w=1019&h=441" alt="image"></p>
+<p>解释一下，这里添加ssh key主要是为了让每次更新博客时不用都输账号密码，如果不添加key的话，github会拒绝我们的SSH链接请求</p>
+<h2 id="第三步：第一篇博客"><a href="#第三步：第一篇博客" class="headerlink" title="第三步：第一篇博客"></a>第三步：第一篇博客</h2><p>博客搭好了，就开始写文章了，这里简单介绍一下，详细的文档可以看 <a href="https://hexo.io/zh-cn/" target="_blank" rel="noopener">hexo</a> 官网。<br>新建文章，输入以下命令即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new &apos;文章标题&apos;</span><br></pre></td></tr></table></figure>
+
+<p>执行完成后可以在 /source/_posts 下看到一个“文章标题.md”的文章文件啦。.md 就是 Markdown 格式的文件，具体用法可以在网上找一下，语法还是比较简单的。</p>
+<p>在 Markdown 文章里面输入你的文章内容</p>
+<p><img src="D:%5CInfo%5Cblog%5Csource_posts%5C2920298820-5c47cdffac5f1_articlex.jpg" alt="image"></p>
 
     </div>
 
@@ -371,7 +455,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一步"><span class="nav-number">1.</span> <span class="nav-text">第一步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二步"><span class="nav-number">2.</span> <span class="nav-text">第二步</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一步：本地前提准备"><span class="nav-number">1.</span> <span class="nav-text">第一步：本地前提准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二步：Github配置"><span class="nav-number">2.</span> <span class="nav-text">第二步：Github配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置-SSH-key"><span class="nav-number">3.</span> <span class="nav-text">配置 SSH key</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三步：第一篇博客"><span class="nav-number">4.</span> <span class="nav-text">第三步：第一篇博客</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->
@@ -412,8 +496,48 @@
     
   </nav>
 </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/anbious" title="GitHub &rarr; https://github.com/anbious" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:434400726@qq.com" title="E-Mail &rarr; mailto:434400726@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
 
 
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://aubreyii.github.io/" title="https://aubreyii.github.io/" rel="noopener" target="_blank">Aubrey</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.csdn.net/SSR_J_Study" title="https://blog.csdn.net/SSR_J_Study" rel="noopener" target="_blank">苏溧</a>
+        </li>
+      
+    </ul>
+  </div>
 
       </div>
 
@@ -435,7 +559,7 @@
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
   <span class="post-meta-divider">|</span>
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.4.1</div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.4.1</div>
 
         
 
@@ -460,8 +584,7 @@
   <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
   <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
 <script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
-<script src="/js/schemes/muse.js?v=7.4.1"></script>
-
+<script src="/js/schemes/pisces.js?v=7.4.1"></script>
 <script src="/js/next-boot.js?v=7.4.1"></script>
 
 
