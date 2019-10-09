@@ -361,102 +361,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/07/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Gality">
-      <meta itemprop="description" content="这里记录着我的所学所想">
-      <meta itemprop="image" content="https://s2.ax1x.com/2019/10/08/ufukdI.th.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Gality's Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2019/10/07/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2019-10-07 21:47:11" itemprop="dateCreated datePublished" datetime="2019-10-07T21:47:11+08:00">2019-10-07</time>
-            </span>
-          
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-        
-      
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019/10/07/hello-world/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2019/10/07/hello-world/" itemprop="commentCount"></span></a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-        
-      
-    </div>
-    <div>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </article>
-  
-  
-  
-
-    
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/07/XSS/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -529,60 +433,15 @@
 
       
           <h1 id="XSS进阶（一）"><a href="#XSS进阶（一）" class="headerlink" title="XSS进阶（一）"></a>XSS进阶（一）</h1><p>直接接着上文<a href="http://xss.fbisb.com" target="_blank" rel="noopener">http://xss.fbisb.com</a> 中的题，以下的题请使用FireFox进行测试，chrome会默认禁止执行url中的script代码，导致无法弹窗</p>
-<h2 id="L2"><a href="#L2" class="headerlink" title="L2"></a>L2</h2><p>先尝试搜索</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;alert(/xss/)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<p>然后审查元素：</p>
-<p><img src="https://s2.ax1x.com/2019/10/07/u2x2kt.png" alt="u2x2kt.png"></p>
-<p>有两处出现了回显，但是观察第一行，我们的代码直接原封不动的回显出来，估计八成就是HTML实体编码了，这个没办法，没法绕过。那么下面那条语句会不会是一个突破口呢？</p>
-<p>尝试构造：<code>&quot;&gt;&lt;script&gt;alert(/xss/)&lt;/script&gt;</code></p>
-<p>成功闭合前面的标签，完成突破，弹窗完毕</p>
-<h2 id="L3"><a href="#L3" class="headerlink" title="L3"></a>L3</h2><p>还是先尝试搜索：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;alert(/xss/)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<p> ，然后审查元素</p>
-<p>和上图是一样的，于是尝试<code>&#39;&gt;&lt;script&gt;alert(/xss/)&lt;/script&gt;</code> ，只不过这次是用单引号闭合的</p>
-<p><img src="https://s2.ax1x.com/2019/10/07/u2xcTI.png" alt="u2xcTI.png"></p>
-<p>发现&lt;,&gt;,’ 都被转义了，那么这个时候就想，既然闭合不了，那么能不能通过给标签新加一个属性，来达到运行JavaScript的目的呢？</p>
-<p>尝试:<code>&#39;onfocus=&#39;alert(/xss/)&#39;</code> 当点击文本框时实现弹窗（觉得实现效果不好的话可以尝试添加其他的事件属性）</p>
-<h2 id="L4"><a href="#L4" class="headerlink" title="L4"></a>L4</h2><p>还是先尝试搜索：<code>&quot;&gt;&lt;script&gt;alert(/xss/)&lt;/script&gt;</code>  ，然后审查元素，</p>
-<p><img src="https://s2.ax1x.com/2019/10/07/u2x60A.png" alt="u2x60A.png"></p>
-<p>发现尖括号被过滤了，那尝试上面的思路如何呢？构造<code>&#39;onfocus=&#39;alert(/xss/)&#39;</code> 发现应该把单引号换成双引号去闭合，即：<code>&quot;onfocus=&#39;alert(/xss/)&#39;</code>完成弹窗</p>
-<h2 id="L5"><a href="#L5" class="headerlink" title="L5"></a>L5</h2><p>尝试搜索：<code>&quot;&gt;&lt;script&gt;alert(/xss/)&lt;/script&gt;</code>  ，然后审查元素:</p>
-<p><img src="https://s2.ax1x.com/2019/10/07/u2xymd.png" alt="u2xymd.png"></p>
-<p>发现在尖括号中的script会被替换成scr_ipt，导致&lt;script&gt;标签无法被正常的识别，同时on也会被替换成o_n,这时候有两个方向，一种是尝试大小写script绕过检测，第二种是利用标签属性，避开使用script，同时也不能使用on事件。</p>
-<p>这里经过尝试，大小写无法绕过，那只能是第二种思路了：考虑现在我们还可以利用什么呢？也就是href和src的javascript协议了；</p>
-<p>构造<code>&quot;&gt;&lt;a href=&quot;javascript:alert(/xss/)&quot;&gt;</code>,然后点击我们自己构造的a标签，实现弹窗，这里可能会有人不解，href不是应该加一个URL嘛，为什么可以执行JavaScript，其实这里确实是一个URL，浏览器将href等于的字符串当作URL处理，然后读到了JavaScript:这个js的伪协议，于是调用js引擎解析后面的代码，实现了js 的执行</p>
-<h2 id="L6"><a href="#L6" class="headerlink" title="L6"></a>L6</h2><p>搜索：<code>&quot;&gt;&lt;script&gt;alert(/xss/)&lt;/script&gt;</code>  ，然后审查元素,仍然是上图那样，script会被替换，那试试刚刚得payload：<code>&quot;&gt;&lt;a href=&quot;javascript:alert(/xss/)&quot;&gt;</code> ：</p>
-<p><img src="https://s2.ax1x.com/2019/10/07/u2xrOH.png" alt="u2xrOH.png"></p>
-<p>发现确实可以闭合，但是href被替换为hr_ef了，那用src呢？打扰了。。src也会被替换，那么on呢？同样被替换，那么我们回归比较上一题得第一种思路可以解决问题嘛？尝试一下：</p>
-<p><code>&quot;&gt;&lt;scRIpT&gt;alert(/xss/)&lt;/scRIpt&gt;</code> </p>
-<p>OK,OVER！</p>
-<h2 id="L7"><a href="#L7" class="headerlink" title="L7"></a>L7</h2><p>先尝试一下上一关得payload<code>&quot;&gt;&lt;scRIpT&gt;alert(/xss/)&lt;/scRIpt&gt;</code> </p>
-<p><img src="https://s2.ax1x.com/2019/10/07/u2xRtP.png" alt="u2xRtP.png"></p>
-<p>发现script被替换了，欸，能不能双写绕过？构造<code>&#39;&quot;&gt;&lt;scriscriptpt&gt;alert(/xss/)&lt;/scriscriptpt&gt;</code> </p>
-<p>原理是什么呢？当一个script被替换为空时，外层得script又被组合出来了，形成payload，完成弹窗，OK</p>
-<h2 id="L8"><a href="#L8" class="headerlink" title="L8"></a>L8</h2><p>题目形式发生了变化，变成了添加友链，观察一下代码：</p>
-<p><img src="https://s2.ax1x.com/2019/10/07/u2xWff.png" alt="u2xWff.png"></p>
-<p>那我们能不能直接：<code>javascript:alert(/xss/)</code> , 结果不行，发现script被替换，但是仔细看，这里是在标签内，我们其实可以尝试使用HTML Encode绕过，尝试一下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&amp;#x6a;&amp;#x61;&amp;#x76;&amp;#x61;&amp;#x73;&amp;#x63;&amp;#x72;&amp;#x69;&amp;#x70;&amp;#x74;&amp;#x3a;&amp;#x61;&amp;#x6c;&amp;#x65;&amp;#x72;&amp;#x74;&amp;#x28;&amp;#x2f;&amp;#x78;&amp;#x73;&amp;#x73;&amp;#x2f;&amp;#x29;</span><br></pre></td></tr></table></figure>
-
-<p>这个其实就是<code>javascript:alert(/xss/)</code>得HTML实体编码，由于是在HTML标签中，这些标签会被正常得解析成HTML，但是在后端看来并没有script需要被替换，于是将内容原封不动得返回到前端交由浏览器渲染。</p>
-<p>ok，payload有效，完成弹窗</p>
-<h2 id="L9"><a href="#L9" class="headerlink" title="L9"></a>L9</h2><p>先尝试一下<code>javascript:alert(/xss/)</code></p>
-<p><img src="https://s2.ax1x.com/2019/10/07/u2xhp8.png" alt="u2xhp8.png"></p>
-<p>提示链接不合法，那我们考虑一下，什么样的链接是合法的呢？通过不断尝试，发现后端会判断有没有”http://“这个字符串出现，如果出现，其他都不检测，就认为是合法链接，将用户输入拼接进a标签中</p>
-<p>那这时候，我们灵光一显，我构造<code>javascript:alert(http://)</code> (记得除了http://外，要HTML encode一下绕过替换)，OK，实现弹窗</p>
-<h2 id="L10"><a href="#L10" class="headerlink" title="L10"></a>L10</h2><p>直接啥都没了？没有输入的地方？这我怎么办嘛？别着急，审查一下元素：</p>
-<p><img src="https://s2.ax1x.com/2019/10/07/u2x41S.png" alt="u2x41S.png"></p>
-<p>发现猫腻，输入框被隐藏了，那我们只需要把hidden属性去掉，文本框就会显现出来，但是注意这里是没有submit按钮，也就是无法提交我们的表单，那这时候怎么办？—-当然是自己加一个标签啊！</p>
-<p><img src="https://s2.ax1x.com/2019/10/07/u2x56g.png" alt="u2x56g.png"></p>
-<p>测试一下那个字段会回显：发现t_sort会将我们提交的数据拼接起来，ok，开始构造XSS：</p>
-<p><code>&quot;&gt;onfocus=&quot;alert(/xss/)&quot;</code></p>
-<p>聚焦时实现弹窗</p>
-<hr>
-<p>OK，今天就先到这里吧，明天接着写后10道题</p>
-
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/2019/10/07/XSS/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -652,7 +511,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">2</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -719,12 +578,37 @@
       
     </ul>
   </div>
+  <span>　<i class="fa fa-bomb"></i></span>
+<span id="showDays"></span>
+
+<script>
+  var seconds = 1000;
+  var minutes = seconds * 60;
+  var hours = minutes * 60;
+  var days = hours * 24;
+  var years = days * 365;
+  var birthDay = Date.UTC(2017,12,17,00,00,00); // 这里设置建站时间
+  setInterval(function() {
+    var today = new Date();
+    var todayYear = today.getFullYear();
+    var todayMonth = today.getMonth()+1;
+    var todayDate = today.getDate();
+    var todayHour = today.getHours();
+    var todayMinute = today.getMinutes();
+    var todaySecond = today.getSeconds();
+    var now = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+    var diff = now - birthDay;
+    var diffYears = Math.floor(diff/years);
+    var diffDays = Math.floor((diff/days)-diffYears*365);
+    var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+    var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+    var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+      document.getElementById('showDays').innerHTML="本站已运行 "+diffYears+" 年 "+diffDays+" 天 "+diffHours+" 小时 "+diffMinutes+" 分钟 "+diffSeconds+" 秒";
+  }, 1000);
+</script>
 
       </div>
-
-    </div>
-
-    <div id="days"></div>
+          <div id="days"></div>
 <script>
 function show_date_time(){
     window.setTimeout("show_date_time()", 1000);
@@ -750,6 +634,9 @@ function setzero(i){
 }
 show_date_time();
 </script>
+
+    </div>
+
   </aside>
   <div id="sidebar-dimmer"></div>
 
@@ -765,33 +652,6 @@ show_date_time();
   </span>
   <span class="author" itemprop="copyrightHolder">Gality</span>
 </div>
-
-<div id="days"></div>
-<script>
-function show_date_time(){
-    window.setTimeout("show_date_time()", 1000);
-    BirthDay=new Date("10/07/2019 15:13:14");//修改为自己的blog建站时间
-    today=new Date();
-    timeold=(today.getTime()-BirthDay.getTime());
-    sectimeold=timeold/1000
-    secondsold=Math.floor(sectimeold);
-    msPerDay=24*60*60*1000
-    e_daysold=timeold/msPerDay
-    daysold=Math.floor(e_daysold);
-    e_hrsold=(e_daysold-daysold)*24;
-    hrsold=setzero(Math.floor(e_hrsold));
-    e_minsold=(e_hrsold-hrsold)*60;
-    minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
-    seconds=setzero(Math.floor((e_minsold-minsold)*60));
-    document.getElementById('days').innerHTML="本站已安全运行"+daysold+"天"+hrsold+"小时"+minsold+"分"+seconds+"秒";
-}
-function setzero(i){
-    if (i<10)
-    {i="0" + i};
-    return i;
-}
-show_date_time();
-</script>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">主题 â€“ <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.4.1</div>
