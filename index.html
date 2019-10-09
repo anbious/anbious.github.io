@@ -19,6 +19,8 @@
 
 <link rel="stylesheet" href="www.bootcdn.cn/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
 <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2">
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
 
 
 <script id="hexo-configurations">
@@ -328,6 +330,7 @@
 
       
           <p>本文记录了利用Github pages + hexo + nexT建站的经过，偶有踩坑。。且没有解决。。以后还是要再多试试。不过从0到1建站还是很有成就感的，记录一哈~</p>
+          
           <!--noindex-->
           
             <div class="post-button">
@@ -433,6 +436,7 @@
 
       
           <h1 id="XSS进阶（一）"><a href="#XSS进阶（一）" class="headerlink" title="XSS进阶（一）"></a>XSS进阶（一）</h1><p>直接接着上文<a href="http://xss.fbisb.com" target="_blank" rel="noopener">http://xss.fbisb.com</a> 中的题，以下的题请使用FireFox进行测试，chrome会默认禁止执行url中的script代码，导致无法弹窗</p>
+          
           <!--noindex-->
           
             <div class="post-button">
@@ -584,7 +588,7 @@
 <script>
  function show_date_time(){
     window.setTimeout("show_date_time()", 1000);
-    BirthDay=new Date("05/10/2019 15:13:14");//修改为自己的blog建站时间
+    BirthDay=new Date("10/05/2019 15:13:14");//修改为自己的blog建站时间
     today=new Date();
     timeold=(today.getTime()-BirthDay.getTime());
     sectimeold=timeold/1000
