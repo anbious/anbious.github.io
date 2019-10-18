@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.1" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.1">
+
+<link rel="stylesheet" href="www.bootcdn.cn/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2">
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.4.1',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"mac"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="RSA综述引自 https://paper.seebug.org/727/ 和 http://www.ruanyifeng.com/blog/2013/07/rsa_algorithm_part_two.html  最近见到一个跟RSA有关的加密的题目，这里了解下，补一下知识空白">
+<meta name="keywords" content="密码学">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RSA">
+<meta property="og:url" content="http://yoursite.com/2019/10/18/RSA/index.html">
+<meta property="og:site_name" content="Gality&#39;s Blog">
+<meta property="og:description" content="RSA综述引自 https://paper.seebug.org/727/ 和 http://www.ruanyifeng.com/blog/2013/07/rsa_algorithm_part_two.html  最近见到一个跟RSA有关的加密的题目，这里了解下，补一下知识空白">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://images.seebug.org/content/images/2018/10/6eb2d812-e353-4f52-9595-2d2852d05328.png-w331s">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=%5Cphi(p%5E%7Bk%7D)%3Dp%5E%7Bk%7D-p%5E%7Bk-1%7D&chs=40">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=%5Cphi(p%5E%7Bk%7D)%3Dp%5E%7Bk%7D-p%5E%7Bk-1%7D%3Dp%5E%7Bk%7D(1-%5Cfrac%7B1%7D%7Bp%7D)&chs=60">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=n%3Dp_%7B1%7D%5E%7Bk_%7B1%7D%7Dp_%7B2%7D%5E%7Bk_%7B2%7D%7D...p_%7Br%7D%5E%7Bk_%7Br%7D%7D&chs=40">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=%5Cphi(n)%3D%5Cphi(p_%7B1%7D%5E%7Bk_%7B1%7D%7D)%5Cphi(p_%7B2%7D%5E%7Bk_%7B2%7D%7D)...%5Cphi(p_%7Br%7D%5E%7Bk_%7Br%7D%7D)&chs=40">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=%5Cphi(n)%3Dp_%7B1%7D%5E%7Bk_%7B1%7D%7Dp_%7B2%7D%5E%7Bk_%7B2%7D%7D...p_%7Br%7D%5E%7Bk_%7Br%7D%7D(1-%5Cfrac%7B1%7D%7Bp_%7B1%7D%7D)(1-%5Cfrac%7B1%7D%7Bp_%7B2%7D%7D)...(1-%5Cfrac%7B1%7D%7Bp_%7Br%7D%7D)&chs=60">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=%5Cphi(n)%3Dn(1-%5Cfrac%7B1%7D%7Bp_%7B1%7D%7D)(1-%5Cfrac%7B1%7D%7Bp_%7B2%7D%7D)...(1-%5Cfrac%7B1%7D%7Bp_%7Br%7D%7D)&chs=60">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=%5Cphi(1323)%3D%5Cphi(3%5E%7B3%7D%5Ctimes7%5E%7B2%7D)%3D1323(1-%5Cfrac%7B1%7D%7B3%7D)(1-%5Cfrac%7B1%7D%7B7%7D)%3D756&chs=60">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=a%5E%7B%5Cphi(n)%7D%5Cequiv%5C1%20(mod%5C%20n)&chs=60">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=7%5E%7B%5Cphi(10)%7D%5Cequiv%5C%201%5C%20(mod%5C%2010)%20&chs=40">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=7%5E%7B4k%7D%5Cequiv%5C%201%5C%20(mod%5C%2010)%20&chs=40">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=a%5E%7Bp-1%7D%5Cequiv%5C%201%5C%20(mod%5C%20p)%20&chs=40">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=ab%20%5Cequiv%201%5C%20(mod%5C%20n)&chs=40">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=a%5E%7B%5Cphi(n)%7D%3Da%5Ctimes%20a%5E%7B%5Cphi(n)-1%7D%5Cequiv%5C%201%5C%20(mod%5C%20n)%20&chs=40">
+<meta property="og:image" content="https://s2.ax1x.com/2019/10/19/KebEWV.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/10/19/KebwTA.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/10/19/KebWwj.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/10/19/KebLm4.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/10/19/Keqn9P.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/10/19/KeLdPI.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/10/19/KeLcZQ.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/10/19/KeLfGq.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/10/19/KeLhR0.png">
+<meta property="og:updated_time" content="2019-10-18T18:41:44.699Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RSA">
+<meta name="twitter:description" content="RSA综述引自 https://paper.seebug.org/727/ 和 http://www.ruanyifeng.com/blog/2013/07/rsa_algorithm_part_two.html  最近见到一个跟RSA有关的加密的题目，这里了解下，补一下知识空白">
+<meta name="twitter:image" content="https://images.seebug.org/content/images/2018/10/6eb2d812-e353-4f52-9595-2d2852d05328.png-w331s">
+  <link rel="canonical" href="http://yoursite.com/2019/10/18/RSA/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>RSA | Gality's Blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+    <a href="https://github.com/anbious/" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Gality's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">欢迎光临~随便坐</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="fa fa-search fa-fw"></i>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/18/RSA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Gality">
+      <meta itemprop="description" content="这里记录着我的所学所想">
+      <meta itemprop="image" content="https://s2.ax1x.com/2019/10/08/ufukdI.th.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Gality's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">RSA
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-18 22:49:19" itemprop="dateCreated datePublished" datetime="2019-10-18T22:49:19+08:00">2019-10-18</time>
+            </span>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/安全/" itemprop="url" rel="index"><span itemprop="name">安全</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019/10/18/RSA/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2019/10/18/RSA/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="RSA综述"><a href="#RSA综述" class="headerlink" title="RSA综述"></a>RSA综述</h1><p>引自 <a href="https://paper.seebug.org/727/" target="_blank" rel="noopener">https://paper.seebug.org/727/</a> 和 <a href="http://www.ruanyifeng.com/blog/2013/07/rsa_algorithm_part_two.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2013/07/rsa_algorithm_part_two.html</a> </p>
+<p>最近见到一个跟RSA有关的加密的题目，这里了解下，补一下知识空白</p>
+<a id="more"></a>
+
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p> 由Ron Rivest，Adi Shamir和Len Adleman发明的RSA密码系统首次在1977年8月的”科学美国人”杂志上发表（译者注：本文于1999年2月在美国数学学会的Notices杂志首次发布）。密码系统最常用于提供隐私保护和确保数字数据的真实性。目前，RSA部署在许多商业系统中。Web服务器和浏览器使用它来保护Web流量，它可以用于保障电子邮件的隐私和真实性，还可以用于保护远程登录会话，同时它也是电子信用卡支付系统的核心。简而言之，RSA常用于需要考虑数字数据安全性的应用中。 </p>
+<p>RSA是典型的非对称算法，其会生成RSA的公私钥，一般私钥用于解密信息而公钥用于加密信息，但是二者也并不绝对，所谓公私钥的区分仅仅是对公开与否的区分，本质来说并没有什么区别。</p>
+<p>自最初发布以来，RSA系统已被许多研究人员分析认为是易受攻击的。尽管二十年的研究出了许多引人入胜的攻击，但其中没有一个攻击是毁灭性的。这些攻击主要说明了不当使用RSA的危险，可见安全地实施RSA确实也是一项非常重要的任务。我们的目标是使用基础数学的知识分析其中的一些攻击，在整个分析过程中，我们遵循标准命名约定，使用Alice和Bob表示希望彼此通信的两个正常通信方，使用Marvin来表示希望窃听或篡改Alice和Bob之间通信的恶意攻击者。</p>
+<p><img src="https://images.seebug.org/content/images/2018/10/6eb2d812-e353-4f52-9595-2d2852d05328.png-w331s" alt=" "></p>
+<h2 id="RSA数学基础"><a href="#RSA数学基础" class="headerlink" title="RSA数学基础"></a>RSA数学基础</h2><h3 id="互质关系"><a href="#互质关系" class="headerlink" title="互质关系"></a>互质关系</h3><p>如果两个正整数，除了1以外，没有其他公因子，我们就称这两个数是<a href="http://zh.wikipedia.org/zh-cn/互素" target="_blank" rel="noopener">互质关系</a>（coprime）。比如，15和32没有公因子，所以它们是互质关系。这说明，不是质数也可以构成互质关系。</p>
+<p>关于互质关系，不难得到以下结论：</p>
+<blockquote>
+<ol>
+<li><p>任意两个质数构成互质关系，比如13和61。</p>
+</li>
+<li><p>一个数是质数，另一个数只要不是前者的倍数，两者就构成互质关系，比如3和10。</p>
+</li>
+<li><p>如果两个数之中，较大的那个数是质数，则两者构成互质关系，比如97和57。</p>
+</li>
+<li><p>1和任意一个自然数是都是互质关系，比如1和99。</p>
+</li>
+<li><p>p是大于1的整数，则p和p-1构成互质关系，比如57和56。</p>
+</li>
+<li><p>p是大于1的奇数，则p和p-2构成互质关系，比如17和15。</p>
+</li>
+</ol>
+</blockquote>
+<h3 id="欧拉函数"><a href="#欧拉函数" class="headerlink" title="欧拉函数"></a>欧拉函数</h3><p>请思考以下问题：</p>
+<blockquote>
+<p>　　任意给定正整数n，请问在小于等于n的正整数之中，有多少个与n构成互质关系？（比如，在1到8之中，有多少个数与8构成互质关系？）</p>
+</blockquote>
+<p>计算这个值的方法就叫做<a href="http://zh.wikipedia.org/wiki/欧拉函数" target="_blank" rel="noopener">欧拉函数</a>，以φ(n)表示。在1到8之中，与8形成互质关系的是1、3、5、7，所以 φ(n) = 4。</p>
+<p>φ(n) 的计算方法并不复杂，但是为了得到最后那个公式，需要一步步讨论。</p>
+<p><strong>第一种情况</strong></p>
+<p>如果n=1，则 φ(1) = 1 。因为1与任何数（包括自身）都构成互质关系。</p>
+<p><strong>第二种情况</strong></p>
+<p>如果n是质数，则 φ(n)=n-1 。因为质数与小于它的每一个数，都构成互质关系。比如5与1、2、3、4都构成互质关系。</p>
+<p><strong>第三种情况</strong></p>
+<p>如果n是质数的某一个次方，即 n = p^k (p为质数，k为大于等于1的整数)，则</p>
+<p><img src="http://chart.googleapis.com/chart?cht=tx&chl=%5Cphi(p%5E%7Bk%7D)%3Dp%5E%7Bk%7D-p%5E%7Bk-1%7D&chs=40" alt="img"></p>
+<p>比如 φ(8) = φ(2^3) =2^3 - 2^2 = 8 -4 = 4。</p>
+<p>这是因为只有当一个数不包含质数p，才可能与n互质。而包含质数p的数一共有p^(k-1)个，即1×p、2×p、3×p、…、p^(k-1)×p，把它们去除，剩下的就是与n互质的数。</p>
+<p>上面的式子还可以写成下面的形式：</p>
+<p><img src="http://chart.googleapis.com/chart?cht=tx&chl=%5Cphi(p%5E%7Bk%7D)%3Dp%5E%7Bk%7D-p%5E%7Bk-1%7D%3Dp%5E%7Bk%7D(1-%5Cfrac%7B1%7D%7Bp%7D)&chs=60" alt="img"></p>
+<p>可以看出，上面的第二种情况是 k=1 时的特例。</p>
+<p><strong>第四种情况</strong></p>
+<p>如果n可以分解成两个互质的整数之积，</p>
+<blockquote>
+<p>　　n = p1 × p2</p>
+</blockquote>
+<p>则</p>
+<blockquote>
+<p>　　φ(n) = φ(p1p2) = φ(p1)φ(p2)</p>
+</blockquote>
+<p>即积的欧拉函数等于各个因子的欧拉函数之积。比如，φ(56)=φ(8×7)=φ(8)×φ(7)=4×6=24。</p>
+<p>这一条的证明要用到<a href="http://en.wikipedia.org/wiki/Chinese_remainder_theorem" target="_blank" rel="noopener">“中国剩余定理”</a>，这里就不展开了，只简单说一下思路：如果a与p1互质(a&lt;p1)，b与p2互质(b&lt;p2)，c与p1p2互质(c&lt;p1p2)，则c与数对 (a,b) 是一一对应关系。由于a的值有φ(p1)种可能，b的值有φ(p2)种可能，则数对 (a,b) 有φ(p1)φ(p2)种可能，而c的值有φ(p1p2)种可能，所以φ(p1p2)就等于φ(p1)φ(p2)。</p>
+<p><strong>第五种情况</strong></p>
+<p>因为任意一个大于1的正整数，都可以写成一系列质数的积。</p>
+<p><img src="http://chart.googleapis.com/chart?cht=tx&chl=n%3Dp_%7B1%7D%5E%7Bk_%7B1%7D%7Dp_%7B2%7D%5E%7Bk_%7B2%7D%7D...p_%7Br%7D%5E%7Bk_%7Br%7D%7D&chs=40" alt="img"></p>
+<p>根据第4条的结论，得到</p>
+<p><img src="http://chart.googleapis.com/chart?cht=tx&chl=%5Cphi(n)%3D%5Cphi(p_%7B1%7D%5E%7Bk_%7B1%7D%7D)%5Cphi(p_%7B2%7D%5E%7Bk_%7B2%7D%7D)...%5Cphi(p_%7Br%7D%5E%7Bk_%7Br%7D%7D)&chs=40" alt="img"></p>
+<p>再根据第3条的结论，得到</p>
+<p><img src="http://chart.googleapis.com/chart?cht=tx&chl=%5Cphi(n)%3Dp_%7B1%7D%5E%7Bk_%7B1%7D%7Dp_%7B2%7D%5E%7Bk_%7B2%7D%7D...p_%7Br%7D%5E%7Bk_%7Br%7D%7D(1-%5Cfrac%7B1%7D%7Bp_%7B1%7D%7D)(1-%5Cfrac%7B1%7D%7Bp_%7B2%7D%7D)...(1-%5Cfrac%7B1%7D%7Bp_%7Br%7D%7D)&chs=60" alt="img"></p>
+<p>也就等于</p>
+<p><img src="http://chart.googleapis.com/chart?cht=tx&chl=%5Cphi(n)%3Dn(1-%5Cfrac%7B1%7D%7Bp_%7B1%7D%7D)(1-%5Cfrac%7B1%7D%7Bp_%7B2%7D%7D)...(1-%5Cfrac%7B1%7D%7Bp_%7Br%7D%7D)&chs=60" alt="img"></p>
+<p>这就是欧拉函数的通用计算公式。比如，1323的欧拉函数，计算过程如下：</p>
+<p><img src="http://chart.googleapis.com/chart?cht=tx&chl=%5Cphi(1323)%3D%5Cphi(3%5E%7B3%7D%5Ctimes7%5E%7B2%7D)%3D1323(1-%5Cfrac%7B1%7D%7B3%7D)(1-%5Cfrac%7B1%7D%7B7%7D)%3D756&chs=60" alt="img"></p>
+<p><strong>欧拉定理</strong></p>
+<p>欧拉函数的用处，在于<a href="http://zh.wikipedia.org/wiki/欧拉定理_(数论)" target="_blank" rel="noopener">欧拉定理</a>。”欧拉定理”指的是：</p>
+<blockquote>
+<p>如果两个正整数a和n互质，则n的欧拉函数 φ(n) 可以让下面的等式成立：</p>
+<p><img src="http://chart.googleapis.com/chart?cht=tx&chl=a%5E%7B%5Cphi(n)%7D%5Cequiv%5C1%20(mod%5C%20n)&chs=60" alt="img"></p>
+</blockquote>
+<p>也就是说，a的φ(n)次方被n除的余数为1。或者说，a的φ(n)次方减去1，可以被n整除。比如，3和7互质，而7的欧拉函数φ(7)等于6，所以3的6次方（729）减去1，可以被7整除（728/7=104）。</p>
+<p>欧拉定理的证明比较复杂，这里就省略了。我们只要记住它的结论就行了。</p>
+<p>欧拉定理可以大大简化某些运算。比如，7和10互质，根据欧拉定理，</p>
+<p><img src="http://chart.googleapis.com/chart?cht=tx&chl=7%5E%7B%5Cphi(10)%7D%5Cequiv%5C%201%5C%20(mod%5C%2010)%20&chs=40" alt="img"></p>
+<p>已知 φ(10) 等于4，所以马上得到7的4倍数次方的个位数肯定是1。</p>
+<p><img src="http://chart.googleapis.com/chart?cht=tx&chl=7%5E%7B4k%7D%5Cequiv%5C%201%5C%20(mod%5C%2010)%20&chs=40" alt="img"></p>
+<p>因此，7的任意次方的个位数（例如7的222次方），心算就可以算出来。</p>
+<p>欧拉定理有一个特殊情况。</p>
+<blockquote>
+<p>假设正整数a与质数p互质，因为质数p的φ(p)等于p-1，则欧拉定理可以写成</p>
+<p><img src="http://chart.googleapis.com/chart?cht=tx&chl=a%5E%7Bp-1%7D%5Cequiv%5C%201%5C%20(mod%5C%20p)%20&chs=40" alt="img"></p>
+</blockquote>
+<p>这就是著名的<a href="http://zh.wikipedia.org/wiki/费马小定理" target="_blank" rel="noopener">费马小定理</a>。它是欧拉定理的特例。</p>
+<p>欧拉定理是RSA算法的核心。理解了这个定理，就可以理解RSA。</p>
+<h3 id="模反元素"><a href="#模反元素" class="headerlink" title="模反元素"></a>模反元素</h3><p>还剩下最后一个概念：</p>
+<blockquote>
+<p>如果两个正整数a和n互质，那么一定可以找到整数b，使得 ab-1 被n整除，或者说ab被n除的余数是1。</p>
+<p><img src="http://chart.googleapis.com/chart?cht=tx&chl=ab%20%5Cequiv%201%5C%20(mod%5C%20n)&chs=40" alt="img"></p>
+<p>这时，b就叫做a的<a href="http://zh.wikipedia.org/wiki/模反元素" target="_blank" rel="noopener">“模反元素”</a>。</p>
+</blockquote>
+<p>比如，3和11互质，那么3的模反元素就是4，因为 (3 × 4)-1 可以被11整除。显然，模反元素不止一个， 4加减11的整数倍都是3的模反元素 {…,-18,-7,4,15,26,…}，即如果b是a的模反元素，则 b+kn 都是a的模反元素。</p>
+<p>欧拉定理可以用来证明模反元素必然存在。</p>
+<p><img src="http://chart.googleapis.com/chart?cht=tx&chl=a%5E%7B%5Cphi(n)%7D%3Da%5Ctimes%20a%5E%7B%5Cphi(n)-1%7D%5Cequiv%5C%201%5C%20(mod%5C%20n)%20&chs=40" alt="img"></p>
+<p>可以看到，a的 φ(n)-1 次方，就是a的模反元素。</p>
+<h2 id="RSA算法"><a href="#RSA算法" class="headerlink" title="RSA算法"></a>RSA算法</h2><h3 id="公私钥生成"><a href="#公私钥生成" class="headerlink" title="公私钥生成"></a>公私钥生成</h3><p><strong>第一步，随机选择两个不相等的质数p和q。</strong></p>
+<p>爱丽丝选择了61和53。（实际应用中，这两个质数越大，就越难破解。）</p>
+<p><strong>第二步，计算p和q的乘积n。</strong></p>
+<p>爱丽丝就把61和53相乘。</p>
+<blockquote>
+<p>　　n = 61×53 = 3233</p>
+</blockquote>
+<p>n的长度就是密钥长度。3233写成二进制是110010100001，一共有12位，所以这个密钥就是12位。实际应用中，RSA密钥一般是1024位，重要场合则为2048位。</p>
+<p><strong>第三步，计算n的欧拉函数φ(n)。</strong></p>
+<p>根据公式：</p>
+<blockquote>
+<p>　　φ(n) = (p-1)(q-1)</p>
+</blockquote>
+<p>爱丽丝算出φ(3233)等于60×52，即3120。</p>
+<p><strong>第四步，随机选择一个整数e，条件是1&lt; e &lt; φ(n)，且e与φ(n) 互质。</strong></p>
+<p>爱丽丝就在1到3120之间，随机选择了17。（实际应用中，常常选择65537。）</p>
+<p><strong>第五步，计算e对于φ(n)的模反元素d。</strong></p>
+<p>所谓<a href="http://zh.wikipedia.org/wiki/模反元素" target="_blank" rel="noopener">“模反元素”</a>就是指有一个整数d，可以使得ed被φ(n)除的余数为1。</p>
+<blockquote>
+<p>　　ed ≡ 1 (mod φ(n))</p>
+</blockquote>
+<p>这个式子等价于</p>
+<blockquote>
+<p>　　ed - 1 = kφ(n)</p>
+</blockquote>
+<p>于是，找到模反元素d，实质上就是对下面这个二元一次方程求解。</p>
+<blockquote>
+<p>　　ex + φ(n)y = 1</p>
+</blockquote>
+<p>已知 e=17, φ(n)=3120，</p>
+<blockquote>
+<p>　　17x + 3120y = 1</p>
+</blockquote>
+<p>这个方程可以用<a href="http://zh.wikipedia.org/wiki/扩展欧几里得算法" target="_blank" rel="noopener">“扩展欧几里得算法”</a>求解，此处省略具体过程。总之，爱丽丝算出一组整数解为 (x,y)=(2753,-15)，即 d=2753。</p>
+<p>至此所有计算完成。</p>
+<p><strong>第六步，将n和e封装成公钥，n和d封装成私钥。</strong></p>
+<p>在爱丽丝的例子中，n=3233，e=17，d=2753，所以公钥就是 (3233,17)，私钥就是（3233, 2753）。</p>
+<p>实际应用中，公钥和私钥的数据都采用<a href="http://zh.wikipedia.org/zh-cn/ASN.1" target="_blank" rel="noopener">ASN.1</a>格式表达（<a href="http://hi.baidu.com/mathack/item/d0ad4cc1514a3663f7c95da2" target="_blank" rel="noopener">实例</a>）</p>
+<h3 id="RSA可靠性分析"><a href="#RSA可靠性分析" class="headerlink" title="RSA可靠性分析"></a>RSA可靠性分析</h3><p>回顾上面的密钥生成步骤，一共出现六个数字：</p>
+<blockquote>
+<p>　　p<br>　　q<br>　　n<br>　　φ(n)<br>　　e<br>　　d</p>
+</blockquote>
+<p>这六个数字之中，公钥用到了两个（n和e），其余四个数字都是不公开的。其中最关键的是d，因为n和d组成了私钥，一旦d泄漏，就等于私钥泄漏。</p>
+<p><strong>那么，有无可能在已知n和e的情况下，推导出d？</strong></p>
+<blockquote>
+<p>　　（1）ed≡1 (mod φ(n))。只有知道e和φ(n)，才能算出d。</p>
+<p>　　（2）φ(n)=(p-1)(q-1)。只有知道p和q，才能算出φ(n)。</p>
+<p>　　（3）n=pq。只有将n因数分解，才能算出p和q。</p>
+</blockquote>
+<p><strong>结论：如果n可以被因数分解，d就可以算出，也就意味着私钥被破解。</strong></p>
+<p>可是，大整数的因数分解，是一件非常困难的事情。目前，除了暴力破解，还没有发现别的有效方法。维基百科这样写道：</p>
+<blockquote>
+<p>　　“对极大整数做因数分解的难度决定了RSA算法的可靠性。换言之，对一极大整数做因数分解愈困难，RSA算法愈可靠。</p>
+<p>　　假如有人找到一种快速因数分解的算法，那么RSA的可靠性就会极度下降。但找到这样的算法的可能性是非常小的。今天只有短的RSA密钥才可能被暴力破解。到2008年为止，世界上还没有任何可靠的攻击RSA算法的方式。</p>
+<p>　　只要密钥长度足够长，用RSA加密的信息实际上是不能被解破的。”</p>
+</blockquote>
+<p>举例来说，你可以对3233进行因数分解（61×53），但是你没法对下面这个整数进行因数分解。</p>
+<blockquote>
+<p>　　12301866845301177551304949<br>　　58384962720772853569595334<br>　　79219732245215172640050726<br>　　36575187452021997864693899<br>　　56474942774063845925192557<br>　　32630345373154826850791702<br>　　61221429134616704292143116<br>　　02221240479274737794080665<br>　　351419597459856902143413</p>
+</blockquote>
+<p>它等于这样两个质数的乘积：</p>
+<blockquote>
+<p>　　33478071698956898786044169<br>　　84821269081770479498371376<br>　　85689124313889828837938780<br>　　02287614711652531743087737<br>　　814467999489<br>　　　　×<br>　　36746043666799590428244633<br>　　79962795263227915816434308<br>　　76426760322838157396665112<br>　　79233373417143396810270092<br>　　798736308917</p>
+</blockquote>
+<p>事实上，这大概是人类已经分解的最大整数（232个十进制位，768个二进制位）。比它更大的因数分解，还没有被报道过，因此目前被破解的最长RSA密钥就是768位。</p>
+<h3 id="加密和解密"><a href="#加密和解密" class="headerlink" title="加密和解密"></a>加密和解密</h3><p>有了公钥和密钥，就能进行加密和解密了。</p>
+<p><strong>（1）加密要用公钥 (n,e)</strong></p>
+<p>假设鲍勃要向爱丽丝发送加密信息m，他就要用爱丽丝的公钥 (n,e) 对m进行加密。这里需要注意，m必须是整数（字符串可以取ascii值或unicode值），且m必须小于n。</p>
+<p>所谓”加密”，就是算出下式的c：</p>
+<blockquote>
+<p>　　me ≡ c (mod n)</p>
+</blockquote>
+<p>爱丽丝的公钥是 (3233, 17)，鲍勃的m假设是65，那么可以算出下面的等式：</p>
+<blockquote>
+<p>　　6517 ≡ 2790 (mod 3233)</p>
+</blockquote>
+<p>于是，c等于2790，鲍勃就把2790发给了爱丽丝。</p>
+<p><strong>（2）解密要用私钥(n,d)</strong></p>
+<p>爱丽丝拿到鲍勃发来的2790以后，就用自己的私钥(3233, 2753) 进行解密。可以证明，下面的等式一定成立：</p>
+<blockquote>
+<p>　　cd ≡ m (mod n)</p>
+</blockquote>
+<p>也就是说，c的d次方除以n的余数为m。现在，c等于2790，私钥是(3233, 2753)，那么，爱丽丝算出</p>
+<blockquote>
+<p>　　27902753 ≡ 65 (mod 3233)</p>
+</blockquote>
+<p>因此，爱丽丝知道了鲍勃加密前的原文就是65。</p>
+<p>至此，”加密–解密”的整个过程全部完成。</p>
+<p>我们可以看到，如果不知道d，就没有办法从c求出m。而前面已经说过，要知道d就必须分解n，这是极难做到的，所以RSA算法保证了通信安全。</p>
+<p>你可能会问，公钥(n,e) 只能加密小于n的整数m，那么如果要加密大于n的整数，该怎么办？有两种解决方法：一种是把长信息分割成若干段短消息，每段分别加密；另一种是先选择一种”对称性加密算法”（比如<a href="https://zh.wikipedia.org/wiki/资料加密标准" target="_blank" rel="noopener">DES</a>），用这种算法的密钥加密信息，再用RSA公钥加密DES密钥。</p>
+<h2 id="攻击思路探讨"><a href="#攻击思路探讨" class="headerlink" title="攻击思路探讨"></a>攻击思路探讨</h2><h3 id="大数分解"><a href="#大数分解" class="headerlink" title="大数分解"></a>大数分解</h3><p>给了RSA公钥⟨N,e⟩，首先想到的攻击就是分解模数N，给了N的因子，攻击者可以计算得到φ(N)，从而也可以计算得到解密指数d=e的逆 mod φ(N)，我们称这种分解模数的方法为针对RSA的暴力攻击。虽然分解算法已经稳步改进，但是在正确使用RSA情况下，当前的技术水平仍远未对RSA的安全性构成威胁。大整数分解是计算数学之美，不过本文研究主题并不是大整数分解。为完整起见，我们顺便提一下，目前普通数字域筛法是效率最高的分解方法。分解n位整数需要时间为<img src="https://s2.ax1x.com/2019/10/19/KebEWV.png" alt="KebEWV.png">其中c&lt;2，对RSA进行攻击的方法花费时间超过这个范围就那么吸引人了，比如暴力搜索M方法，还有一些RSA发布不久后的旧方法。</p>
+<p>我们的目的是研究在不直接分解RSA模数N情况下解密消息的攻击方法，值得注意的是，一些RSA模数的稀疏集，N=pq可以很容易地被分解，举个例子，如果p−1是乘积的质因子且小于B，那么在小于B3时间内分解N。</p>
+<p>如上所述，如果存在有效的因式分解算法，则RSA是不安全的，反之亦然。这是一个由来已久的公开问题：必须要有一个NN的因子才能有效地计算eth模N的根数？破解RSA和因式分解一样难吗？我们在下面提出了具体的开放性问题。</p>
+<p><img src="https://s2.ax1x.com/2019/10/19/KebwTA.png" alt="KebwTA.png"></p>
+<h2 id="基本攻击"><a href="#基本攻击" class="headerlink" title="基本攻击"></a>基本攻击</h2><h3 id="共模"><a href="#共模" class="headerlink" title="共模"></a>共模</h3><p><img src="https://s2.ax1x.com/2019/10/19/KebWwj.png" alt="KebWwj.png"></p>
+<h3 id="盲化"><a href="#盲化" class="headerlink" title="盲化"></a>盲化</h3><p><img src="https://s2.ax1x.com/2019/10/19/KebLm4.png" alt="KebLm4.png"></p>
+<h2 id="低私钥指数攻击"><a href="#低私钥指数攻击" class="headerlink" title="低私钥指数攻击"></a>低私钥指数攻击</h2><p> 为了减少加密时间（或签名生成时间），人们可能希望使用小值d而不是随机d。由于模幂运算需要花费线性时间为log2d，所以小d可以使性能提高至少10倍(对于1024位模数而言)。不幸的是，由M.Wiener发现的一种巧妙的攻击表明，一个小的d会导致密码系统完全被攻破。 </p>
+<p><img src="https://s2.ax1x.com/2019/10/19/Keqn9P.png" alt="Keqn9P.png"></p>
+<p>这是一个经典的逼近关系，分数k/d且d&lt;φ(N)在log2N约束内非常逼近e/N。实际上，所有类似k/d这样的分数都是e/N的连分数展开的收敛。因此我们首要做的便是计算e/N的连分数的logN收敛，其中一个连分数就等于k/d。因为ed−kφ(N)=1，我们有gcd(k,d)=1，因此k/d是一个最简分数。这是可以算出密钥d的线性时间算法。</p>
+<p>由于通常NN都是1024位，因此d必须至少256位长才能避免这种攻击。这对于诸如”智能卡”之类的低功耗设备来说是不幸的，因为小d就能节省大量能耗。 然而，并不是毫无办法。Wiener提出了许多能够实现快速解密并且不易受其攻击影响的技术：</p>
+<p><strong>使用大</strong>e <strong>：</strong>假设不是减小e模φ(N)，而是使用⟨N,e′⟩作为公钥，其中对于某些大t有e′=e+t⋅φ(N)。</p>
+<p>显然，e′可以代替e用于消息加密，当使用大的e值时，上述证明中的k不再小。一个简单的计算表明，如果e′&gt;N的1.5次方，那么无论d多小，都无法实施上述攻击。然而，大的e值将导致加密时间的增加。</p>
+<h2 id="低公钥指数"><a href="#低公钥指数" class="headerlink" title="低公钥指数"></a>低公钥指数</h2><p> 为了减少加密或签名验证时间，通常会使用一个小的公钥指数e。e的最小可能值为3，但为防止某些攻击，建议使用e=2的16次方+1=65537。当使用值2的16次方+1时，签名验证需要17次乘法，而使用随机的e≤φ(N)时则需要大约1000次乘法。与上一节的攻击不同，当使用一个小e时，针对的攻击不只是攻破而已。 </p>
+<p>对其的攻击基于 Copper-smith的一个定理 ，这里就不具体展开了，直接说攻击方法</p>
+<h3 id="Hastad广播攻击"><a href="#Hastad广播攻击" class="headerlink" title="Hastad广播攻击"></a>Hastad广播攻击</h3><p><img src="https://s2.ax1x.com/2019/10/19/KeLdPI.png" alt="KeLdPI.png"></p>
+<h3 id="Franklin-Reiter相关消息攻击"><a href="#Franklin-Reiter相关消息攻击" class="headerlink" title="Franklin-Reiter相关消息攻击"></a>Franklin-Reiter相关消息攻击</h3><p><img src="https://s2.ax1x.com/2019/10/19/KeLcZQ.png" alt="KeLcZQ.png"></p>
+<h3 id="部分密钥泄露攻击"><a href="#部分密钥泄露攻击" class="headerlink" title="部分密钥泄露攻击"></a>部分密钥泄露攻击</h3><p> 设⟨N,d⟩为RSA私钥，假设Marvin通过某种方式知道了d的一部分，比如说四分之一。他能得到d剩下的部分吗？当相应的公钥指数很小时，答案是肯定的，令人惊讶吧。最近，Boneh，Durfee和Frankel证明了只要e&lt;√N，就有可能从它的一小部分位算出dd的所有部分。可见结论说明了保护整个RSA私钥的重要性。 </p>
+<h2 id="执行攻击"><a href="#执行攻击" class="headerlink" title="执行攻击"></a>执行攻击</h2><p> 我们将注意力转向另一类完全不同的攻击。这些攻击不是攻击RSA函数的底层结构，而是专注于RSA的实现。 </p>
+<h3 id="时序攻击"><a href="#时序攻击" class="headerlink" title="时序攻击"></a>时序攻击</h3><p> 想一下存储RSA私钥的智能卡，由于卡是防篡改的，攻击者Marvin可能无法审阅其内容并使其泄露出密钥。然而，Kocher的一个巧妙攻击表明，通过精确测量智能卡执行RSA解密（或签名）所需的时间，可以快速发现私有解密指数d。 </p>
+<p><img src="https://s2.ax1x.com/2019/10/19/KeLfGq.png" alt="KeLfGq.png"></p>
+<p>Kocher最近在这些线路上发现了另一种叫做功率密码分析的攻击。 Kocher表明，通过在签名生成过程中精确测量智能卡的功耗，Marvin通常可以轻松发现密钥。事实证明，在多精度乘法期间，卡的功耗高于正常值。通过测量高消耗周期的长度，Marvin可以很容易地确定在给定的迭代中卡是执行一次还是两次乘法，从而暴露出d的比特位。</p>
+<p>Kocher最近发现了另一种类似的攻击，称为能量分析攻击。Kocher指出通过精确测量智能卡在签名生成过程中的功耗，Marvin通常可以很容易地得到秘密密钥。结果表明，在多精度乘法过程中卡的功耗会高于正常值，通过测量高消耗周期的长度，Marvin可以很容易地确定在给定的迭代中卡是否执行一次或两次乘法，从而得到d的比特位。</p>
+<h3 id="随机故障"><a href="#随机故障" class="headerlink" title="随机故障"></a>随机故障</h3><p>偏理论，一般难以实现，不再赘述</p>
+<h3 id="Bleichenbacher对PKCS-1的攻击"><a href="#Bleichenbacher对PKCS-1的攻击" class="headerlink" title="Bleichenbacher对PKCS 1的攻击"></a>Bleichenbacher对PKCS 1的攻击</h3><p><img src="https://s2.ax1x.com/2019/10/19/KeLhR0.png" alt="KeLhR0.png"></p>
+<p>OK，RSA大致看完了，接下来就是结合具体题去看看了，明天写</p>
+
+    </div>
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------　　　　本文结束　<i class="fa fa-heart"></i>　感谢您的阅读　　　　-------------</div>
+    
+</div>
+      
+    </div>
+
+    
+    
+    
+        
+      
+        <div id="reward-container">
+  <div><p style="font-size:14px; color:#34495e; margin:0 0 5px 0;">觉得不错可以请我喝杯咖啡～</p></div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechat.png" alt="Gality 微信支付">
+        <p>微信支付</p>
+      </div>
+
+  </div>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/密码学/" rel="tag"># 密码学</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/10/14/XSS绕过速查（一）/" rel="next" title="XSS绕过速查（一）">
+                  <i class="fa fa-chevron-left"></i> XSS绕过速查（一）
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#RSA综述"><span class="nav-number">1.</span> <span class="nav-text">RSA综述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍"><span class="nav-number">1.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RSA数学基础"><span class="nav-number">1.2.</span> <span class="nav-text">RSA数学基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#互质关系"><span class="nav-number">1.2.1.</span> <span class="nav-text">互质关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#欧拉函数"><span class="nav-number">1.2.2.</span> <span class="nav-text">欧拉函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模反元素"><span class="nav-number">1.2.3.</span> <span class="nav-text">模反元素</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RSA算法"><span class="nav-number">1.3.</span> <span class="nav-text">RSA算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#公私钥生成"><span class="nav-number">1.3.1.</span> <span class="nav-text">公私钥生成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RSA可靠性分析"><span class="nav-number">1.3.2.</span> <span class="nav-text">RSA可靠性分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加密和解密"><span class="nav-number">1.3.3.</span> <span class="nav-text">加密和解密</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#攻击思路探讨"><span class="nav-number">1.4.</span> <span class="nav-text">攻击思路探讨</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#大数分解"><span class="nav-number">1.4.1.</span> <span class="nav-text">大数分解</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本攻击"><span class="nav-number">1.5.</span> <span class="nav-text">基本攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#共模"><span class="nav-number">1.5.1.</span> <span class="nav-text">共模</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#盲化"><span class="nav-number">1.5.2.</span> <span class="nav-text">盲化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#低私钥指数攻击"><span class="nav-number">1.6.</span> <span class="nav-text">低私钥指数攻击</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#低公钥指数"><span class="nav-number">1.7.</span> <span class="nav-text">低公钥指数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Hastad广播攻击"><span class="nav-number">1.7.1.</span> <span class="nav-text">Hastad广播攻击</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Franklin-Reiter相关消息攻击"><span class="nav-number">1.7.2.</span> <span class="nav-text">Franklin-Reiter相关消息攻击</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#部分密钥泄露攻击"><span class="nav-number">1.7.3.</span> <span class="nav-text">部分密钥泄露攻击</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#执行攻击"><span class="nav-number">1.8.</span> <span class="nav-text">执行攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#时序攻击"><span class="nav-number">1.8.1.</span> <span class="nav-text">时序攻击</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随机故障"><span class="nav-number">1.8.2.</span> <span class="nav-text">随机故障</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bleichenbacher对PKCS-1的攻击"><span class="nav-number">1.8.3.</span> <span class="nav-text">Bleichenbacher对PKCS 1的攻击</span></a></li></ol></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="https://s2.ax1x.com/2019/10/08/ufukdI.th.jpg"
+      alt="Gality">
+  <p class="site-author-name" itemprop="name">Gality</p>
+  <div class="site-description" itemprop="description">这里记录着我的所学所想</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span>
+        
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span>
+        
+      </div>
+    
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/anbious" title="GitHub &rarr; https://github.com/anbious" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:434400726@qq.com" title="E-Mail &rarr; mailto:434400726@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://aubreyii.github.io/" title="https://aubreyii.github.io/" rel="noopener" target="_blank">Aubrey</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.csdn.net/SSR_J_Study" title="https://blog.csdn.net/SSR_J_Study" rel="noopener" target="_blank">苏溧</a>
+        </li>
+      
+    </ul>
+  </div>
+  <span>　<i class="fa fa-bomb"></i></span>
+<span id="days"></span>
+
+<script>
+ function show_date_time(){
+    window.setTimeout("show_date_time()", 1000);
+    BirthDay=new Date("10/05/2019 15:13:14");//修改为自己的blog建站时间
+    today=new Date();
+    timeold=(today.getTime()-BirthDay.getTime());
+    sectimeold=timeold/1000
+    secondsold=Math.floor(sectimeold);
+    msPerDay=24*60*60*1000
+    e_daysold=timeold/msPerDay
+    daysold=Math.floor(e_daysold);
+    e_hrsold=(e_daysold-daysold)*24;
+    hrsold=setzero(Math.floor(e_hrsold));
+    e_minsold=(e_hrsold-hrsold)*60;
+    minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+    seconds=setzero(Math.floor((e_minsold-minsold)*60));
+    document.getElementById('days').innerHTML="本站已安全运行"+daysold+"天"+hrsold+"小时"+minsold+"分"+seconds+"秒";
+}
+function setzero(i){
+    if (i<10)
+    {i="0" + i};
+    return i;
+}
+show_date_time();
+</script>
+
+      </div>
+          <div id="days"></div>
+
+    </div>
+
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Gality</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 - <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.4.1</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+  
+    <span class="post-meta-divider">|</span>
+  
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
+<script src="/js/schemes/pisces.js?v=7.4.1"></script>
+<script src="/js/next-boot.js?v=7.4.1"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.1"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'aR8ng54zhg5n4NqhzHlwq6cF-gzGzoHsz',
+    appKey: 'BBkWyI9GUxpC87rrDlujaHHU',
+    placeholder: '留下邮箱，有回复时你将收到提醒，邮箱不会被公开',
+    avatar: 'wavatar',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>
